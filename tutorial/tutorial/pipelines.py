@@ -6,8 +6,13 @@
 
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
-
+from scrapy.exceptions import DropItem
 
 class TutorialPipeline:
     def process_item(self, item, spider):
-        return item
+        adapter = ItemAdapter(item)
+        if (adapter['author']=='Albert Einstein'):
+            return item
+        else:
+            print('Item discarded')
+            raise DropItem('This is no Einstein quote')
