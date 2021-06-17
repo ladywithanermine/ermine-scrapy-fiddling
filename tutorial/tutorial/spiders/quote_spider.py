@@ -37,3 +37,5 @@ class QuotesSpider(scrapy.Spider):
                 'author' : quote.css("small.author::text").get(),
                 'tags' : quote.css("div.tags a.tag::text").getall()
             }
+
+        yield from response.follow_all(css='ul.pager a', callback=self.parse)
